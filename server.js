@@ -125,7 +125,13 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`DECA AI: http://localhost:${PORT}`);
-});
+// Локальный запуск (не работает на Vercel, но нужен для npm run dev)
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`DECA AI: http://localhost:${PORT}`);
+    });
+}
+
+// Экспорт для Vercel
+export default app;
