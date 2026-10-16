@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DECA AI</title>
+    <link rel="shortcut icon" href="bird-logo.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="brand">
+                <img src="bird-logo.png" alt="DECA" class="brand-logo">
+                <span class="name">DECA <span class="accent">AI</span></span>
+            </div>
+            <div class="header-actions">
+                <div class="model-select" id="modelSelectWrap">
+                    <button class="model-trigger" id="modelTrigger" type="button">
+                        <span id="modelLabel">GPT OSS 20B</span>
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="model-menu" id="modelMenu">
+                        <button class="model-option active" data-value="openai/gpt-oss-20b" type="button">
+                            <span class="model-option-name">GPT OSS 20B</span>
+                            <span class="model-option-desc">Быстрая, для чата</span>
+                        </button>
+                        <button class="model-option" data-value="openai/gpt-oss-120b" type="button">
+                            <span class="model-option-name">GPT OSS 120B</span>
+                            <span class="model-option-desc">Умная, для сложных задач</span>
+                        </button>
+                    </div>
+                </div>
+                <span class="status" id="status">онлайн</span>
+                <button class="icon-btn" id="clearBtn" title="Очистить чат" aria-label="Очистить чат">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m2 0v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6h14z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="chat" id="chat"></main>
+
+        <div class="typing" id="typing">
+            <span></span><span></span><span></span>
+        </div>
+
+        <footer class="composer">
+            <div class="composer-inner">
+                <textarea id="input" placeholder="Напиши сообщение..." rows="1"></textarea>
+                <button id="send" aria-label="Отправить" disabled>
+                    <svg class="send-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 2L11 13"/>
+                        <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+                    </svg>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-icon">
+                <i class="fa-solid fa-trash-can"></i>
+            </div>
+            <h3 class="modal-title">Очистить чат?</h3>
+            <p class="modal-text">Вся история сообщений будет удалена. Это действие нельзя отменить.</p>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" id="modalCancel" type="button">Отмена</button>
+                <button class="modal-btn modal-btn-confirm" id="modalConfirm" type="button">Очистить</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="creator-overlay" id="creatorOverlay"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/atom-one-dark.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
