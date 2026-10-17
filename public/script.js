@@ -16,6 +16,17 @@ document.addEventListener('dragstart', (e) => {
     e.preventDefault();
 });
 
+// 📱 Подстройка высоты под клавиатуру на мобильных
+if (window.visualViewport) {
+    const app = document.querySelector('.app');
+    const setVh = () => {
+        app.style.height = window.visualViewport.height + 'px';
+    };
+    window.visualViewport.addEventListener('resize', setVh);
+    window.visualViewport.addEventListener('scroll', setVh);
+    setVh();
+}
+
 const chat = document.getElementById('chat');
 const input = document.getElementById('input');
 const sendBtn = document.getElementById('send');
@@ -39,7 +50,6 @@ const LOGO = 'bird-logo.png';
 let history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 let currentModel = localStorage.getItem(MODEL_KEY) || 'openai/gpt-oss-20b';
 
-// ---------- Триггеры визитки ----------
 const CREATOR_TRIGGERS = [
     'кто тебя создал', 'кто создал тебя',
     'кто тебя сделал', 'кто сделал тебя',
@@ -69,10 +79,7 @@ function isCreatorQuestion(text) {
     return CREATOR_TRIGGERS.some(trigger => t.includes(trigger));
 }
 
-// ---------- Визитка ----------
-// 🔒 Всё содержимое строится в JS, в HTML нет имени и ссылок
 function buildCreatorCard() {
-    // Собираем через массив частей, чтобы в исходнике не было цельных строк
     const p1 = ['Sevdi', 'yorov'].join('');
     const p2 = ['Muham', 'madali'].join('');
     const site = ['deca', '.uz'].join('');
@@ -111,20 +118,17 @@ function buildCreatorCard() {
 
     creatorOverlay.innerHTML = html;
 
-    // Вешаем обработчик на кнопку закрытия
     const closeBtn = creatorOverlay.querySelector('#creatorClose');
     closeBtn.addEventListener('click', closeCreatorCard);
 }
 
 function openCreatorCard() {
-    // Строим DOM только при открытии
     buildCreatorCard();
     creatorOverlay.classList.add('open');
 }
 
 function closeCreatorCard() {
     creatorOverlay.classList.remove('open');
-    // 🔒 Очищаем содержимое — в DOM больше нет имени
     setTimeout(() => {
         creatorOverlay.innerHTML = '';
     }, 300);
@@ -138,7 +142,6 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && creatorOverlay.classList.contains('open')) closeCreatorCard();
 });
 
-// ---------- Модель ----------
 function applyModel(value) {
     currentModel = value;
     localStorage.setItem(MODEL_KEY, value);
@@ -173,7 +176,6 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// ---------- marked ----------
 const renderer = new marked.Renderer();
 
 renderer.code = function (code, infostring) {
