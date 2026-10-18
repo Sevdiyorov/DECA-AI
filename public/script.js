@@ -1,3 +1,8 @@
+// 📱 Запрет скролла окна на iOS при открытии клавиатуры
+window.addEventListener('scroll', () => {
+    window.scrollTo(0, 0);
+});
+
 // 🔒 Запрет копирования везде, кроме чата
 document.addEventListener('contextmenu', (e) => {
     if (e.target.closest('.bubble, #input, .code-block pre')) return;
@@ -16,7 +21,7 @@ document.addEventListener('dragstart', (e) => {
     e.preventDefault();
 });
 
-// 📱 Подстройка высоты под клавиатуру на мобильных
+// 📱 Подстройка высоты под клавиатуру
 if (window.visualViewport) {
     const app = document.querySelector('.app');
     const setVh = () => {
